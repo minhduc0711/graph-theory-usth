@@ -35,7 +35,7 @@ Ho Chi Minh City,Cu Chi,50
 Cu Chi,Tay Ninh,50
 Tay Ninh,Moc Bai,55
 Ho Chi Minh City,Mui Ne,220
-Ho Chi Minh City,Dalat,340
+Ho Chi Minh City,Da Lat,340
 Ho Chi Minh City,Buon Ma Thuot,336
 Buon Ma Thuot,Kontum,250
 Kontum,Phuoc Son,220
@@ -53,7 +53,7 @@ Dong Hoi,Vinh,200
 Vinh,Ha Noi,330
 Ha Noi,Ninh Binh,100
 Ninh Binh,Mai Chau,200
-Ninh Binh,Ha Long City,300
+Ninh Binh,Ha Long,300
 Ha Long City,Ha Noi,160
 Ha Noi,Sapa,400
 Ha Noi,Mai Chau,200
@@ -62,4 +62,19 @@ Son La,Dien Bien Phu,200
 Dien Bien Phu,Muong Lay,105
 Muong Lay,Sapa,200
 Sapa,Lao Cai,38 
-Lao Cai,Bac Ha,100 
+Lao Cai,Bac Ha,100
+Nam Dinh,Vinh,233
+Phan Thiet,Bien Hoa,179
+Cam Ranh,Nam Dinh,1270
+Thanh Hoa,Ha Long,270
+Ca Mau,Vinh Long,180
+Hoa Binh,Ha Noi,91.6
+Viet Tri,Bac Ninh,90.6
+Uong Bi,Thai Nguyen,143
+Ben Tre,Hai Duong,1615
+Tra Vinh,Chau Doc,205
+Hai Duong,Nha Trang,1307
+Bac Ninh,Thai Binh,137
+Ha Dong,Hue,690
+Cao Bang,Bac Ninh,369
+Quang Ngai,Da Lat,546
