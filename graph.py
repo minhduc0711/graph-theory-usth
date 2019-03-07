@@ -160,3 +160,33 @@ def prim(G):
         if parent[v] is not None:
             tree_nodes[v].set_parent(tree_nodes[parent[v]])
     return tree_nodes[0]
+
+
+def dijkstra(G, s):
+    """
+    Find the shortest paths from s to all other vertices in G using Dijkstra's algorithm
+    """
+
+    # Priority queue that holds estimated shortest distance
+    Q = priority_dict()
+    for v in range(G.num_vertices):
+        Q[v] = sys.maxsize
+    # Initialization
+    Q[s] = 0
+    parent = {s: None}
+    D = {}
+    
+    while (len(Q) != 0):
+        # Extract the vertex with smallest distance to s
+        u = Q.smallest()
+        D[u] = Q[u]
+        Q.pop_smallest()
+
+        # Perform relaxation on neighbors of u
+        for v in neighbors(G, u):
+            if v not in D:
+                alt = D[u] + G.edge_weight(u, v)
+                if alt < Q[v]:
+                    Q[v] = alt
+                    parent[v] = u
+    return D, parent
