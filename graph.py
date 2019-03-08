@@ -190,3 +190,21 @@ def dijkstra(G, s):
                     Q[v] = alt
                     parent[v] = u
     return D, parent
+
+
+def shortest_path(G, vert_name_1, vert_name_2):
+    """
+    Returns the shortest path with its distance from u to v
+    """
+    u = G.vert_name_2_id[vert_name_1]
+    v = G.vert_name_2_id[vert_name_2]
+
+    D, parent = dijkstra(G, u)
+    current = v
+    path = []
+    while current is not None:
+        path.append(current)
+        current = parent[current]
+    path = [G.vert_id_2_name[node] for node in path]
+    path.reverse()
+    return path, D[v]

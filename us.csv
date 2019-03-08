@@ -1,0 +1,17 @@
+CH,B,3
+CH,NY,4
+CH,P,6
+CH,ME,2
+B,NY,1
+NY,P,1
+NY,W,2
+P,CI,5
+P,W,2
+ME,NO,3
+ME,A,1
+CI,W,3
+CI,A,2
+W,A,3
+W,MI,2
+NO,A,5
+A,MI,4
