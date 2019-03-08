@@ -144,9 +144,13 @@ def prim(G):
     for v in range(G.num_vertices):
         C[v] = sys.maxsize
     C[0] = 0
+    total_weight = 0
 
     while len(C) != 0:
-        v = C.pop_smallest()
+        v = C.smallest()
+        total_weight += C[v]
+        C.pop_smallest()
+
         for w in neighbors(G, v):
             if (w in C) and (C[w] > G.adj_matrix[v][w]):
                 C[w] = G.adj_matrix[v][w]
@@ -159,7 +163,7 @@ def prim(G):
     for v in parent:
         if parent[v] is not None:
             tree_nodes[v].set_parent(tree_nodes[parent[v]])
-    return tree_nodes[0]
+    return tree_nodes[0], total_weight
 
 
 def dijkstra(G, s):
