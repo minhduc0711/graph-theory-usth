@@ -14,7 +14,7 @@ class Tree:
 
 
 def preorder(T):
-    print(T.val)
+    print(T.val, end="; ")
     for child in T.children:
         preorder(child)
 
@@ -22,4 +22,4 @@ def preorder(T):
 def postorder(T):
     for child in T.children:
         postorder(child)
-    print(T.val)
+    print(T.val, end="; ")

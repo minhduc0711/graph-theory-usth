@@ -2,6 +2,7 @@ import sys
 import numpy as np
 import pandas as pd
 from priority_dict import priority_dict
+from unionfind import UnionFind
 
 from tree import Tree
 
@@ -41,6 +42,15 @@ class Graph:
         return self.adj_matrix[u][v]
 
 
+    def edges(self):
+        edge_list = {}
+        for i in range(self.adj_matrix.shape[0]):
+            for j in range(self.adj_matrix.shape[1]):
+                if (self.adj_matrix[i][j] != 0) and ((i, j) not in edge_list) and ((j, i) not in edge_list): 
+                    edge_list[(i, j)] = self.adj_matrix[i][j]
+        return edge_list
+
+
 def neighbors(G, v):
     """
     Returns indices of v's neighbors
@@ -50,13 +60,13 @@ def neighbors(G, v):
 
 
 def degree(G, v):
-        """
-        Returns the degree of a given vertex
-        """
-        return len(self.neighbors(v))
+    """
+    Returns the degree of a given vertex
+    """
+    return len(neighbors(G, v))
 
 
-def dfs_helper(G, current, parent):
+def _dfs_helper(G, current, parent):
     # Scan through the neighbors of the current vertex
     for neighbor in neighbors(G, current):
         # Check if it is already visited or not
@@ -64,7 +74,7 @@ def dfs_helper(G, current, parent):
             # We visit this vertex from "current", so mark it as the parent
             parent[neighbor] = current
             # Recur!
-            dfs_helper(G, neighbor, parent)
+            _dfs_helper(G, neighbor, parent)
 
 
 def dfs(G, start):
@@ -75,7 +85,7 @@ def dfs(G, start):
     parent = {start: None}
 
     # Call the recursive helper function, real work starts here
-    dfs_helper(G, start, parent)
+    _dfs_helper(G, start, parent)
     return parent
 
 
@@ -116,12 +126,12 @@ def path(G, u, v):
         return None
 
 
-def grow_edge(G, current, parent, T):
+def _grow_edge(G, current, parent, T):
     for v in neighbors(G, current):
         if v not in parent:
             parent[v] = current
             new_subtree = Tree(G.vert_id_2_name[v], T)
-            grow_edge(G, v, parent, new_subtree)
+            _grow_edge(G, v, parent, new_subtree)
 
 
 def spanning_tree(G, start):
@@ -130,7 +140,7 @@ def spanning_tree(G, start):
     """
     T = Tree(G.vert_id_2_name[start])
     parent = {start: None}
-    grow_edge(G, start, parent, T)
+    _grow_edge(G, start, parent, T)
 
     return T
 
@@ -152,8 +162,8 @@ def prim(G):
         C.pop_smallest()
 
         for w in neighbors(G, v):
-            if (w in C) and (C[w] > G.adj_matrix[v][w]):
-                C[w] = G.adj_matrix[v][w]
+            if (w in C) and (C[w] > G.edge_weight(v, w)):
+                C[w] = G.edge_weight(v, w)
                 parent[w] = v
 
     tree_nodes = {}
@@ -166,6 +176,25 @@ def prim(G):
     return tree_nodes[0], total_weight
 
 
+def kruskal(G):
+    mst_edges = []
+    sorted_edges = priority_dict(G.edges())
+    uf = UnionFind(list(range(G.num_vertices)))
+    total_weight = 0
+    
+    while (uf.n_comps != 1):
+        (u, v) = sorted_edges.smallest()
+        w = sorted_edges[(u, v)]
+        sorted_edges.pop_smallest()
+
+        if uf.component(u) != uf.component(v):
+            uf.union(u, v)
+            mst_edges.append((u, v))
+            total_weight += w
+
+    return mst_edges, total_weight
+            
+        
 def dijkstra(G, s):
     """
     Find the shortest paths from s to all other vertices in G using Dijkstra's algorithm
